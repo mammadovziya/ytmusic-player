@@ -73,8 +73,11 @@ function getCommandNames(command: string): string[] {
   }
 
   const pathExt = process.env.PATHEXT || '.COM;.EXE;.BAT;.CMD';
-  const extensions = pathExt.split(';').filter(Boolean);
-  return [command, ...extensions.map(ext => `${command}${ext}`)];
+  const extensions = new Set(pathExt.split(';').map(ext => ext.toLowerCase()).filter(Boolean));
+  const preferredExtensions = ['.exe', '.cmd', '.bat', ...extensions].filter(ext => ext !== '.com');
+  const orderedExtensions = Array.from(new Set(preferredExtensions));
+
+  return [command, ...orderedExtensions.map(ext => `${command}${ext}`)];
 }
 
 function findWindowsCommand(command: string): string | null {

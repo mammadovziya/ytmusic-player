@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.6
+
+### Fixes
+
+- Fix Windows `mpv` launch by preferring `mpv.exe` over the `mpv.com` wrapper.
+
 ## v0.3.5
 
 ### New Features
