@@ -1,108 +1,140 @@
-# ytmusic-player
+# ytmusic-player - YouTube Music Terminal Player
 
 <div align="center">
-  <img src="assets/ytmusic-player-ui.png" width="600" alt="ytmusic-player Hero">
+  <img src="assets/ytmusic-player-ui.png" width="680" alt="ytmusic-player YouTube Music terminal player interface">
 </div>
 
-YouTube Music player for your terminal. Search and stream music directly from YouTube — no browser, no ads, no distractions.
+`ytmusic-player` is a fast YouTube Music CLI, terminal music player, and command-line YouTube player for Windows, macOS, and Linux. Search YouTube Music, stream audio through `mpv`, download songs with `yt-dlp`, and control playback from a keyboard-driven TUI.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-0.3.4-orange.svg)](https://github.com/mammadovziya/ytmusic-player/releases)
+[![npm version](https://img.shields.io/npm/v/ytmusic-player?color=orange)](https://www.npmjs.com/package/ytmusic-player)
+[![Supported platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#installation)
 [![Built with Bun](https://img.shields.io/badge/Built%20with-Bun-fbf0df?logo=bun&logoColor=black)](https://bun.sh)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
----
+## Why Use It
 
-## Performance-First Experience
-
-`ytmusic-player` is designed for users who live in the terminal. It provides a lightweight, keyboard-driven interface to the entire YouTube Music library without the overhead of a web browser.
-
-- **Fast & Lightweight** — Native performance powered by [Bun](https://bun.sh).
-- **Ad-Free** — Pure music streaming without interruptions.
-- **Offline-Ready** — Download your favorites for local playback.
-- **Privacy-Focused** — No tracking, just your music.
+- Fast terminal YouTube Music search and playback.
+- Native audio playback through `mpv`.
+- Offline downloads powered by `yt-dlp`.
+- Local favorites, playlists, queue, shuffle, repeat, and volume controls.
+- Cross-platform npm binaries for Windows x64, macOS Intel/Apple Silicon, and Linux x64/ARM64.
 
 ## Requirements
 
-The player requires the following binaries in your system path:
+The player uses these command-line tools:
 
-- **mpv** — Media player backend.
-- **yt-dlp** — YouTube stream extractor.
+- `mpv` - media playback backend.
+- `yt-dlp` - YouTube metadata, stream, mix, and download helper.
+
+On first run, `ytmusic-player` checks for both tools and automatically installs missing dependencies when a supported package manager is available:
+
+- Windows: `winget`
+- macOS: `brew`
+- Linux: `apt-get`, `dnf`, `yum`, `pacman`, `zypper`, or `apk`
+
+Set `YTMUSIC_SKIP_AUTO_INSTALL=1` to disable automatic dependency setup and show manual install hints instead.
+
+## Platform Support
+
+| Platform | Architecture | Install path |
+| :--- | :--- | :--- |
+| Windows | x64 | npm package `ytmusic-player-win32-x64` |
+| macOS | Apple Silicon | npm package `ytmusic-player-darwin-arm64` |
+| macOS | Intel | npm package `ytmusic-player-darwin-x64` |
+| Linux | x64 | npm package `ytmusic-player-linux-x64` |
+| Linux | ARM64 | npm package `ytmusic-player-linux-arm64` |
 
 ## Installation
 
-### macOS (Recommended)
-Install via Homebrew to get everything set up automatically:
+### Windows
+
+Install the CLI from npm, then run it:
+
+```powershell
+npm install -g ytmusic-player
+ym
+```
+
+The npm package includes a native Windows x64 binary and uses a Windows named pipe for `mpv` IPC.
+
+### macOS
+
+Homebrew installs the player and runtime dependencies:
 
 ```sh
-# Tap the repository
 brew tap mammadovziya/tap
-
-# Install the player
 brew install ytmusic-cli
+ym
+```
 
-# You can now use any of these commands:
+### Linux
+
+Install the CLI, then run it:
+
+```sh
+npm install -g ytmusic-player
+ym
+```
+
+### From Source
+
+```sh
+bun install
+bun run src/index.ts
+```
+
+## Commands
+
+After installation, these commands launch the same player:
+
+```sh
 ytmusic-player
 ym
 ```
 
-### via NPM (Universal)
-If you already have a Node.js or Bun environment:
-
-```sh
-npm install -g ytmusic-player
-```
-
----
-
 ## Controls
 
-The interface is completely keyboard-driven. Below are the primary controls used during playback and navigation.
-
-### Player controls
 | Key | Action |
 | :--- | :--- |
-| **Space** | Pause / Resume |
-| **← / →** | Seek -10s / +10s |
-| **N** | Next track |
-| **P** | Previous track |
-| **F** | Toggle favorite |
-| **X** | Toggle shuffle |
-| **R** | Cycle Repeat (Off / One / All) |
-| **U** | View playback queue |
-| **I** | Track info & URL |
-| **A** | Add to playlist |
-| **S** | Back to search |
-| **Q / Ctrl+C** | Quit application |
-
-## Interface
-
-The player features a high-fidelity terminal interface, precisely as seen on macOS.
-
-<div align="center">
-  <img src="assets/ytmusic-cli-ui.png" width="550" alt="Interface Preview">
-  <p><i>Native terminal UI showcasing live playback, progress tracking, and queue management.</i></p>
-</div>
-
-<div align="center">
-  <img src="assets/desktop-view.png" width="550" alt="Desktop Integration">
-  <p><i>Seamlessly integrates into your macOS workspace.</i></p>
-</div>
-
----
+| `Space` | Pause or resume |
+| `Left` / `Right` | Seek -10s / +10s |
+| `N` / `P` | Next or previous track |
+| `+` / `-` | Volume up or down |
+| `F` | Toggle favorite |
+| `X` | Toggle shuffle |
+| `R` | Cycle repeat mode |
+| `U` | View playback queue |
+| `I` | Show track info and URL |
+| `A` | Add current track to a playlist |
+| `S` | Return to search |
+| `Q` / `Ctrl+C` | Quit |
 
 ## Features
 
-- **Search & Play** — Instant access to millions of tracks.
-- **Radio Mix** — Auto-queues related tracks when your list ends.
-- **Playlist Management** — Create and manage local playlists.
-- **Multilingual Support** — Available in English, Azerbaijani, and Turkish.
-- **Downloads** — Save tracks for offline listening.
+- Search and play music directly from YouTube.
+- Auto-filled radio mix queue after selecting a track.
+- Favorites and local playlist management.
+- Offline downloads saved under your Music folder.
+- English, Azerbaijani, Turkish, Spanish, German, French, and Russian UI language support.
+- Cross-platform `mpv` IPC support for Unix sockets and Windows named pipes.
+
+## Screenshots
+
+<div align="center">
+  <img src="assets/desktop-view.png" width="640" alt="ytmusic-player running in a desktop terminal">
+  <p><i>Keyboard-first YouTube Music playback in the terminal.</i></p>
+</div>
+
+## Development
+
+```sh
+bun run src/index.ts
+bun test
+bun run build
+```
+
+`bun run build` compiles platform packages under `npm/` for macOS, Linux, and Windows.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-<div align="center">
-  Built with obsession by <b>Ziya Mammadov</b>
-</div>
+MIT. See `LICENSE` for details.

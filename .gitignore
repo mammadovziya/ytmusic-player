@@ -1,6 +1,20 @@
 node_modules/
 npm/*/bin/
+
+# Package/build outputs
+*.tgz
+dist/
+coverage/
+
+# Local environment and logs
+.env
+.env.*
+*.log
+
 .DS_Store
 .planning/
 .pair-programming/
 .opencode/
+
+# This repo uses Bun's bun.lock.
+package-lock.json

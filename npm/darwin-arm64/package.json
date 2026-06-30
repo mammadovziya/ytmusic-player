@@ -1,7 +1,7 @@
 {
   "name": "ytmusic-player-darwin-arm64",
   "version": "0.3.4",
-  "description": "darwin arm64 binary for ytmusic-cli",
+  "description": "macOS arm64 native binary for ytmusic-player",
   "os": [
     "darwin"
   ],

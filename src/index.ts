@@ -8,6 +8,8 @@ import { statSync } from 'fs';
 import { setLang, cycleLang, getLang, langNames, t, LANGS } from './i18n';
 import type { Playlist } from './types';
 import type { Track } from './types';
+import { resolveCommand } from './platform';
+import { ensureRuntimeDependencies } from './dependencies';
 
 // Arrow keys & special keys
 const UP = '\x1B[A';
@@ -15,10 +17,11 @@ const DOWN = '\x1B[B';
 const LEFT = '\x1B[D';
 const RIGHT = '\x1B[C';
 const VOLUME_STEP = 5;
+const VERSION = '0.3.4';
 
 // Version handling
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  process.stdout.write('0.3.3\n');
+  process.stdout.write(`${VERSION}\n`);
   process.exit(0);
 }
 
@@ -70,12 +73,6 @@ function shuffleArray(arr: Track[]) {
 const player = new Player();
 
 // ─── Checks ────────────────────────────────────────────────────────────────
-
-async function checkDep(cmd: string): Promise<boolean> {
-  const proc = Bun.spawn(['which', cmd], { stderr: 'ignore', stdout: 'ignore' });
-  const code = await proc.exited;
-  return code === 0;
-}
 
 // ─── Player events ─────────────────────────────────────────────────────────
 
@@ -251,7 +248,12 @@ async function handleKey(key: string) {
   }
 
   if (key === 'h' || key === 'H') {
-    if (appState !== 'help' && searchMode !== 'typing' && appState !== 'new-playlist' && appState !== 'rename-playlist') {
+    const isTextInput =
+      appState === 'new-playlist' ||
+      appState === 'rename-playlist' ||
+      (appState === 'search-input' && searchMode === 'typing');
+
+    if (appState !== 'help' && !isTextInput) {
       preHelpState = appState;
       appState = 'help';
       if (renderTimer) { clearInterval(renderTimer); renderTimer = null; }
@@ -576,7 +578,8 @@ function toggleDownloadTrack(dlTrack: Track) {
     downloadingTracks.add(dlTrack.id);
     renderCurrentScreen();
     
-    const proc = Bun.spawn(['yt-dlp', '-x', '--audio-format', 'mp3', '-o', join(MUSIC_DIR, `${dlTrack.id}.mp3`), dlTrack.url], {
+    const ytdlp = resolveCommand('yt-dlp') ?? 'yt-dlp';
+    const proc = Bun.spawn([ytdlp, '-x', '--audio-format', 'mp3', '-o', join(MUSIC_DIR, `${dlTrack.id}.mp3`), dlTrack.url], {
       stdout: 'ignore',
       stderr: 'ignore',
       onExit(p, exitCode) {
@@ -896,15 +899,7 @@ async function cleanup() {
 function chalk_reset() { return '\x1B[0m\n'; }
 
 async function main() {
-  const hasMpv = await checkDep('mpv');
-  const hasYtdlp = await checkDep('yt-dlp');
-
-  if (!hasMpv || !hasYtdlp) {
-    console.error(`\n${t('missingDeps')}`);
-    if (!hasMpv) console.error(t('installMpv'));
-    if (!hasYtdlp) console.error(t('installYtdlp'));
-    process.exit(1);
-  }
+  await ensureRuntimeDependencies();
 
   const settings = loadSettings();
   setLang(settings.lang);

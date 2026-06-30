@@ -1,8 +1,7 @@
 import { createConnection, type Socket } from 'net';
 import { EventEmitter } from 'events';
-import { existsSync } from 'fs';
-
-const SOCKET = '/tmp/yt-music-mpv.sock';
+import { unlinkSync } from 'fs';
+import { getMpvIpcPath, isWindows, resolveCommand } from './platform';
 
 export interface PlayerState {
   title: string;
@@ -14,6 +13,7 @@ export interface PlayerState {
 }
 
 export class Player extends EventEmitter {
+  private readonly ipcPath = getMpvIpcPath();
   private proc: ReturnType<typeof Bun.spawn> | null = null;
   private socket: Socket | null = null;
   private buf = '';
@@ -30,34 +30,65 @@ export class Player extends EventEmitter {
   };
 
   async start() {
-    await Bun.$`rm -f ${SOCKET}`.quiet();
+    this.cleanupIpcPath();
+    const mpv = resolveCommand('mpv') ?? 'mpv';
 
     this.proc = Bun.spawn(
-      ['mpv', '--no-video', '--no-terminal', `--input-ipc-server=${SOCKET}`, '--idle=yes'],
+      [mpv, '--no-video', '--no-terminal', `--input-ipc-server=${this.ipcPath}`, '--idle=yes'],
       { stderr: 'ignore', stdout: 'ignore' }
     );
 
-    await this.waitForSocket();
     await this.connect();
     await this.observe();
   }
 
-  private async waitForSocket(timeout = 5000): Promise<void> {
-    const deadline = Date.now() + timeout;
-    while (Date.now() < deadline) {
-      const exists = existsSync(SOCKET);
-      if (exists) return;
-      await Bun.sleep(50);
+  private cleanupIpcPath() {
+    if (isWindows) return;
+
+    try {
+      unlinkSync(this.ipcPath);
+    } catch (error) {
+      const code = typeof error === 'object' && error && 'code' in error
+        ? (error as { code?: string }).code
+        : undefined;
+      if (code !== 'ENOENT') throw error;
     }
-    throw new Error(`mpv socket did not appear within ${timeout}ms: ${SOCKET}`);
   }
 
-  private connect(): Promise<void> {
+  private async connect(timeout = 5000): Promise<void> {
+    const deadline = Date.now() + timeout;
+    let lastError: unknown;
+
+    while (Date.now() < deadline) {
+      try {
+        await this.connectOnce();
+        return;
+      } catch (error) {
+        lastError = error;
+      }
+      await Bun.sleep(50);
+    }
+
+    const detail = lastError instanceof Error ? ` Last error: ${lastError.message}` : '';
+    throw new Error(`mpv IPC endpoint did not become ready within ${timeout}ms: ${this.ipcPath}.${detail}`);
+  }
+
+  private connectOnce(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.socket = createConnection(SOCKET)
-        .on('connect', resolve)
-        .on('error', reject)
-        .on('data', (d) => this.onData(d.toString()));
+      const socket = createConnection(this.ipcPath);
+      const fail = (error: Error) => {
+        socket.destroy();
+        reject(error);
+      };
+
+      socket.once('error', fail);
+      socket.once('connect', () => {
+        socket.off('error', fail);
+        socket.on('error', () => {});
+        socket.on('data', (d) => this.onData(d.toString()));
+        this.socket = socket;
+        resolve();
+      });
     });
   }
 
@@ -130,6 +161,7 @@ export class Player extends EventEmitter {
       this.proc.kill();
       this.proc = null;
     }
+    this.cleanupIpcPath();
   }
 
   async setVolume(level: number) {

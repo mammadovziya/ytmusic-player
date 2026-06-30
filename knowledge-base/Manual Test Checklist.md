@@ -146,6 +146,22 @@ Her release oncesi bu listeyi kontrol et.
 - [ ] Ses seviyesi 0-100 araliginda sinirli kalir
 - [ ] Mevcut ses seviyesi player ekraninda gosterilir
 
+## Dil ve Yardim
+
+- [ ] G ile dil secici acilir ve EN/AZ/TR/ES/DE/FR/RU secenekleri listelenir
+- [ ] Enter ile secilen dil kaydedilir ve UI metinleri guncellenir
+- [ ] H ile player, arama sonuclari ve liste ekranlarinda yardim ekrani acilir
+- [ ] Yardim ekranindan Q, Esc veya H ile onceki ekrana donulur
+
+## Windows
+
+- [ ] Temiz Windows ortaminda `ym` ilk calismada eksik `mpv` ve `yt-dlp` bagimliliklarini `winget` ile kurmaya calisir
+- [ ] Kurulumdan sonra uygulama ayni terminal oturumunda `mpv` ve `yt-dlp` executable'larini bulur
+- [ ] `YTMUSIC_SKIP_AUTO_INSTALL=1` ayarliyken eksik bagimlilik varsa uygulama otomatik kurulum yapmadan manuel kurulum mesaji verir
+- [ ] `npm install -g ytmusic-player` sonrasi `ym` komutu uygulamayi baslatir
+- [ ] Ilk sarki secildiginde mpv IPC hatasi olmadan calmaya baslar
+- [ ] Favoriler, playlistler ve ayarlar `%APPDATA%\ytmusic-cli` altinda kalici olur
+
 ## Genel
 
 - [ ] S ile player'dan arama ekranina doner

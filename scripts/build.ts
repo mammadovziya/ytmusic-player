@@ -4,11 +4,11 @@ import { join } from 'path';
 const root = join(import.meta.dir, '..');
 
 const platforms = [
-  { target: 'bun-darwin-arm64', pkg: 'darwin-arm64', binary: 'ytmusic-cli'     },
-  { target: 'bun-darwin-x64',   pkg: 'darwin-x64',   binary: 'ytmusic-cli'     },
-  { target: 'bun-linux-x64',    pkg: 'linux-x64',    binary: 'ytmusic-cli'     },
-  { target: 'bun-linux-arm64',  pkg: 'linux-arm64',  binary: 'ytmusic-cli'     },
-  { target: 'bun-windows-x64',  pkg: 'win32-x64',    binary: 'ytmusic-cli.exe' },
+  { target: 'bun-darwin-arm64', pkg: 'darwin-arm64', binary: 'ytmusic-cli' },
+  { target: 'bun-darwin-x64', pkg: 'darwin-x64', binary: 'ytmusic-cli' },
+  { target: 'bun-linux-x64', pkg: 'linux-x64', binary: 'ytmusic-cli' },
+  { target: 'bun-linux-arm64', pkg: 'linux-arm64', binary: 'ytmusic-cli' },
+  { target: 'bun-windows-x64', pkg: 'win32-x64', binary: 'ytmusic-cli.exe' },
 ];
 
 for (const { target, pkg, binary } of platforms) {
@@ -26,7 +26,7 @@ for (const { target, pkg, binary } of platforms) {
     process.exit(1);
   }
 
-  process.stdout.write(`done → npm/${pkg}/bin/ytmusic-cli\n`);
+  process.stdout.write(`done -> npm/${pkg}/bin/${binary}\n`);
 }
 
 console.log('\nAll platforms built.');

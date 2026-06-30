@@ -1,7 +1,7 @@
 {
   "name": "ytmusic-player-linux-x64",
   "version": "0.3.4",
-  "description": "linux x64 binary for ytmusic-cli",
+  "description": "Linux x64 native binary for ytmusic-player",
   "os": [
     "linux"
   ],

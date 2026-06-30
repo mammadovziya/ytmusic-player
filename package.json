@@ -1,16 +1,23 @@
 {
   "name": "ytmusic-player",
   "version": "0.3.4",
-  "description": "YouTube Music player for your terminal (ytmusic-cli)",
+  "description": "Fast YouTube Music terminal player for Windows, macOS, and Linux, powered by mpv and yt-dlp.",
   "type": "module",
   "license": "MIT",
+  "homepage": "https://github.com/mammadovziya/ytmusic-player#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mammadovziya/ytmusic-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mammadovziya/ytmusic-player/issues"
+  },
   "bin": {
     "ytmusic-player": "bin/ytmusic-cli",
     "ym": "bin/ytmusic-cli"
   },
   "files": [
     "bin/ytmusic-cli",
-    "npm",
     "README.md",
     "LICENSE"
   ],
@@ -28,11 +35,29 @@
   },
   "keywords": [
     "youtube",
+    "youtube-music",
+    "youtube-music-cli",
+    "youtube-player",
+    "ytmusic",
     "music",
+    "music-player",
     "cli",
+    "command-line",
     "terminal",
+    "terminal-player",
+    "tui",
     "player",
-    "mpv"
+    "mpv",
+    "mpv-player",
+    "yt-dlp",
+    "yt-dlp-wrapper",
+    "offline-music",
+    "playlist-manager",
+    "cross-platform",
+    "windows",
+    "macos",
+    "linux",
+    "bun"
   ],
   "devDependencies": {
     "@types/bun": "latest",

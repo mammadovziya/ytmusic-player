@@ -28,11 +28,11 @@ bun run build
 Verify the output:
 
 ```
-npm/darwin-arm64/bin/yt-music
-npm/darwin-x64/bin/yt-music
-npm/linux-x64/bin/yt-music
-npm/linux-arm64/bin/yt-music
-npm/win32-x64/bin/yt-music.exe
+npm/darwin-arm64/bin/ytmusic-cli
+npm/darwin-x64/bin/ytmusic-cli
+npm/linux-x64/bin/ytmusic-cli
+npm/linux-arm64/bin/ytmusic-cli
+npm/win32-x64/bin/ytmusic-cli.exe
 ```
 
 ### 3. Bump the version
@@ -72,12 +72,12 @@ git push origin v0.x.x
 The workflow will:
 1. Build binaries for all platforms
 2. Publish each platform package to npm
-3. Publish the main `yt-music-cli` package to npm
+3. Publish the main `ytmusic-player` package to npm
 
 ### 6. Verify the release
 
 ```sh
-npm info yt-music-cli
+npm info ytmusic-player
 ```
 
 Check that the latest version matches what you just published.

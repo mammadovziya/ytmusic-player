@@ -1,11 +1,11 @@
 import { mkdirSync, readFileSync } from 'fs';
-import { homedir } from 'os';
 import { join } from 'path';
 import type { Track, Playlist } from './types';
 import type { Lang } from './i18n';
+import { getConfigDir, getMusicDir } from './platform';
 
-const CONFIG_DIR = join(homedir(), '.config', 'ytmusic-cli');
-export const MUSIC_DIR = join(homedir(), 'Music', 'ytmusic-cli');
+const CONFIG_DIR = getConfigDir();
+export const MUSIC_DIR = getMusicDir();
 const FAVORITES_PATH = join(CONFIG_DIR, 'favorites.json');
 const PLAYLISTS_PATH = join(CONFIG_DIR, 'playlists.json');
 const DOWNLOADS_PATH = join(CONFIG_DIR, 'downloads.json');

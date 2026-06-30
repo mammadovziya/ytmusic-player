@@ -23,6 +23,11 @@ function clip(str: string, max: number): string {
   return str.length > max ? str.slice(0, max - 1) + '…' : str;
 }
 
+function actionText(label: string): string {
+  const parts = label.split(' ');
+  return parts.length > 1 ? parts.slice(1).join(' ') : label;
+}
+
 export function clearScreen() {
   process.stdout.write('\x1B[H\x1B[J');
 }
@@ -421,36 +426,36 @@ export function renderHelp() {
 
   const sections = [
     {
-      title: 'General',
+      title: t('helpGeneral'),
       keys: [
-        { k: 'S', d: t('search') },
-        { k: 'G', d: t('languageKey').split(' ')[1] },
+        { k: 'S', d: actionText(t('search')) },
+        { k: 'G', d: actionText(t('languageKey')) },
         { k: 'H', d: t('helpTitle') },
-        { k: 'Q', d: 'Quit (from Player) / Back' },
+        { k: 'Q', d: t('helpBackOrQuit') },
       ]
     },
     {
-      title: 'Navigation & Lists',
+      title: t('helpNavigation'),
       keys: [
         { k: 'L', d: t('favoritesTitle') },
         { k: 'O', d: t('playlistsTitle') },
         { k: 'D', d: t('downloadsTitle') },
-        { k: 'A', d: t('addToPlaylist') },
-        { k: 'Enter', d: t('playKey').split(' ')[1] },
-        { k: 'Esc', d: 'Back / Command Mode' },
+        { k: 'A', d: actionText(t('addToPlaylist')) },
+        { k: 'Enter', d: actionText(t('playKey')) },
+        { k: 'Esc', d: t('helpBackCommandMode') },
       ]
     },
     {
-      title: 'Playback',
+      title: t('helpPlayback'),
       keys: [
-        { k: 'Space', d: 'Pause/Resume' },
-        { k: 'N / P', d: 'Next / Prev' },
-        { k: '← / →', d: 'Seek ±10s' },
+        { k: 'Space', d: t('helpPauseResumeAction') },
+        { k: 'N / P', d: t('helpNextPrev') },
+        { k: '< / >', d: t('helpSeekAction') },
         { k: '+ / -', d: t('volume') },
-        { k: 'X', d: t('shuffleToggle').split(' ')[1] },
-        { k: 'R', d: t('repeatKey').split(' ')[1] },
-        { k: 'F', d: t('favorite').split(' ')[1] },
-        { k: 'W', d: t('downloadKey').split(' ')[1] + ' / ' + t('removeDownloadKey').split(' ')[1] },
+        { k: 'X', d: actionText(t('shuffleToggle')) },
+        { k: 'R', d: actionText(t('repeatKey')) },
+        { k: 'F', d: actionText(t('favorite')) },
+        { k: 'W', d: t('helpDownloadDelete') },
       ]
     }
   ];

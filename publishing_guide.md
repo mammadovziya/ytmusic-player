@@ -1,10 +1,10 @@
-# Publishing Guide - ytmusic-cli
+# Publishing Guide - ytmusic-player
 
-Follow these steps to publish `ytmusic-cli` under the account `mammadovziya`.
+Follow these steps to publish `ytmusic-player` under the account `mammadovziya`.
 
 ## 1. NPM Publication
 
-The project uses a "wrapper" architecture to deliver platform-specific binaries. You must publish the platform packages first, then the main package.
+The project uses a wrapper package with platform-specific optional dependencies. You must publish the platform packages first, then the main package.
 
 ### Step A: Login to NPM
 ```sh
@@ -12,7 +12,7 @@ npm login
 ```
 
 ### Step B: Publish Platform Packages
-Navigate to each platform folder and publish them. Note: Since these are scoped under `@mammadovziya`, you must use the `--access public` flag if it's your first time publishing this scope.
+Navigate to each platform folder and publish them.
 
 ```sh
 # Mac ARM64
@@ -49,7 +49,7 @@ To publish on Homebrew, you need to create a "tap" repository on your GitHub.
 2. Clone it locally.
 
 ### Step B: Prepare a Release
-1. Push your code to your main `ytmusic-cli` GitHub repo.
+1. Push your code to your main `ytmusic-player` GitHub repo.
 2. Create a new GitHub Release (e.g., `v0.3.0`).
 3. Download the "Source code (tar.gz)" from that release.
 
@@ -58,7 +58,7 @@ To publish on Homebrew, you need to create a "tap" repository on your GitHub.
    ```sh
    openssl dgst -sha256 ytmusic-cli-0.3.0.tar.gz
    ```
-2. Copy the content from [ytmusic-cli.rb](file:///Users/ziya/Documents/yt-music-cli/Formula/ytmusic-cli.rb) into your `homebrew-tap` repository as `Formula/ytmusic-cli.rb`.
+2. Copy the content from `Formula/ytmusic-cli.rb` into your `homebrew-tap` repository as `Formula/ytmusic-cli.rb`.
 3. Update the `sha256` field in the file with the value from step 1.
 4. Commit and push to your `homebrew-tap` repo.
 
