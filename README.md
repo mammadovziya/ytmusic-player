@@ -8,8 +8,17 @@
 
 [![npm version](https://img.shields.io/npm/v/ytmusic-player?color=orange)](https://www.npmjs.com/package/ytmusic-player)
 [![Supported platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-blue)](#installation)
+[![Latest release](https://img.shields.io/github/v/release/mammadovziya/ytmusic-player?label=release)](https://github.com/mammadovziya/ytmusic-player/releases)
 [![Built with Bun](https://img.shields.io/badge/Built%20with-Bun-fbf0df?logo=bun&logoColor=black)](https://bun.sh)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+## Project Links
+
+- [Releases](https://github.com/mammadovziya/ytmusic-player/releases)
+- [Tags](https://github.com/mammadovziya/ytmusic-player/tags)
+- [Changelog](CHANGELOG.md)
+- [Issues](https://github.com/mammadovziya/ytmusic-player/issues)
+- [npm package](https://www.npmjs.com/package/ytmusic-player)
 
 ## Why Use It
 
@@ -117,6 +126,19 @@ ym
 - Offline downloads saved under your Music folder.
 - English, Azerbaijani, Turkish, Spanish, German, French, and Russian UI language support.
 - Cross-platform `mpv` IPC support for Unix sockets and Windows named pipes.
+
+## Privacy
+
+- No analytics, telemetry, accounts, or browser cookies.
+- `yt-dlp` runs with config, filesystem cache, and cookie loading disabled.
+- `mpv` runs with user config, disk cache, resume files, cookies, and watch history disabled.
+- Set `YTMUSIC_PROXY` to route yt-dlp traffic through a proxy:
+
+```sh
+YTMUSIC_PROXY=socks5://127.0.0.1:9050 ym
+```
+
+Network anonymity still depends on your network, proxy, or VPN. The app avoids local tracking and cookies, but it cannot hide your IP address by itself.
 
 ## Screenshots
 

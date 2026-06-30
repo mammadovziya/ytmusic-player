@@ -1,15 +1,15 @@
 import { search, fetchMix } from './search';
 import { Player } from './player';
 import { renderSearch, renderResults, renderPlayer, renderFavorites, clearScreen, renderPlaylistList, renderPlaylistDetail, renderPlaylistPicker, renderNewPlaylistInput, renderRenamePlaylistInput, renderLanguagePicker, renderDownloads } from './ui';
-import { loadFavorites, isFavorite, toggleFavorite, loadPlaylists, savePlaylists, createPlaylist, deletePlaylist, renamePlaylist, addTrackToPlaylist, removeTrackFromPlaylist, loadSettings, saveSettings, loadDownloads, isDownloaded, addDownloadRecord, MUSIC_DIR, deleteDownloadRecord } from './config';
-import type { Settings } from './config';
+import { loadFavorites, isFavorite, toggleFavorite, loadPlaylists, createPlaylist, deletePlaylist, renamePlaylist, addTrackToPlaylist, removeTrackFromPlaylist, loadSettings, saveSettings, loadDownloads, isDownloaded, addDownloadRecord, MUSIC_DIR, deleteDownloadRecord } from './config';
 import { join } from 'path';
 import { statSync } from 'fs';
-import { setLang, cycleLang, getLang, langNames, t, LANGS } from './i18n';
+import { setLang, getLang, t, LANGS } from './i18n';
 import type { Playlist } from './types';
 import type { Track } from './types';
 import { resolveCommand } from './platform';
 import { ensureRuntimeDependencies } from './dependencies';
+import { getYtdlpPrivacyArgs } from './privacy';
 
 // Arrow keys & special keys
 const UP = '\x1B[A';
@@ -170,12 +170,6 @@ function renderCurrentScreen() {
       if (currentTrack) import('./ui').then(ui => ui.renderTrackInfo(currentTrack!));
       break;
   }
-}
-
-function cycleLanguageAndSave() {
-  const next = cycleLang();
-  saveSettings({ lang: next });
-  renderCurrentScreen();
 }
 
 async function startPlaying(track: Track, remainingTracks?: Track[]) {
@@ -579,7 +573,7 @@ function toggleDownloadTrack(dlTrack: Track) {
     renderCurrentScreen();
     
     const ytdlp = resolveCommand('yt-dlp') ?? 'yt-dlp';
-    const proc = Bun.spawn([ytdlp, '-x', '--audio-format', 'mp3', '-o', join(MUSIC_DIR, `${dlTrack.id}.mp3`), dlTrack.url], {
+    const proc = Bun.spawn([ytdlp, ...getYtdlpPrivacyArgs(), '-x', '--audio-format', 'mp3', '-o', join(MUSIC_DIR, `${dlTrack.id}.mp3`), dlTrack.url], {
       stdout: 'ignore',
       stderr: 'ignore',
       onExit(p, exitCode) {

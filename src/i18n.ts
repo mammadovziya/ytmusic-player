@@ -24,13 +24,6 @@ export function setLang(lang: Lang) {
   }
 }
 
-export function cycleLang(): Lang {
-  const idx = LANGS.indexOf(currentLang);
-  const next = LANGS[(idx + 1) % LANGS.length] ?? LANGS[0]!;
-  currentLang = next;
-  return currentLang;
-}
-
 type TranslationKey =
   | 'appName'
   | 'languageTitle'
@@ -91,8 +84,6 @@ type TranslationKey =
   | 'noResults'
   | 'ytdlpError'
   | 'missingDeps'
-  | 'installMpv'
-  | 'installYtdlp'
   | 'languageKey'
   | 'helpTitle'
   | 'repeatMode'
@@ -174,8 +165,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'No results. Try again.',
     ytdlpError: 'An error occurred. Make sure yt-dlp is installed.',
     missingDeps: 'Missing dependencies:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Lang',
     helpTitle: 'Help & Shortcuts',
     repeatMode: 'Repeat',
@@ -256,8 +245,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Netice tapilmadi. Yeniden cehd edin.',
     ytdlpError: 'Xeta bas verdi. yt-dlp qurasdirildigindan emin olun.',
     missingDeps: 'Eksik asililiqlar:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Dil',
     helpTitle: 'Komek ve qisayollar',
     repeatMode: 'Tekrar',
@@ -338,8 +325,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Sonuc bulunamadi. Tekrar deneyin.',
     ytdlpError: 'Bir hata olustu. yt-dlp yuklu oldugundan emin olun.',
     missingDeps: 'Eksik bagimliliklar:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Dil',
     helpTitle: 'Yardim ve kisayollar',
     repeatMode: 'Tekrar',
@@ -420,8 +405,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Sin resultados. Intenta otra vez.',
     ytdlpError: 'Ocurrio un error. Asegurate de que yt-dlp este instalado.',
     missingDeps: 'Dependencias faltantes:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Idioma',
     helpTitle: 'Ayuda y atajos',
     repeatMode: 'Repetir',
@@ -502,8 +485,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Keine Ergebnisse. Erneut versuchen.',
     ytdlpError: 'Fehler. Stelle sicher, dass yt-dlp installiert ist.',
     missingDeps: 'Fehlende Abhaengigkeiten:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Sprache',
     helpTitle: 'Hilfe & Tasten',
     repeatMode: 'Wiederholen',
@@ -584,8 +565,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Aucun resultat. Reessayez.',
     ytdlpError: 'Une erreur est survenue. Verifiez que yt-dlp est installe.',
     missingDeps: 'Dependances manquantes:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Langue',
     helpTitle: 'Aide et raccourcis',
     repeatMode: 'Repeter',
@@ -666,8 +645,6 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     noResults: 'Net rezultatov. Poprobuyte esche raz.',
     ytdlpError: 'Proizoshla oshibka. Ubedites, chto yt-dlp ustanovlen.',
     missingDeps: 'Net zavisimostey:',
-    installMpv: '  x mpv  ->  brew install mpv',
-    installYtdlp: '  x yt-dlp  ->  brew install yt-dlp',
     languageKey: 'G Yazyk',
     helpTitle: 'Pomoshch i klavishi',
     repeatMode: 'Povtor',

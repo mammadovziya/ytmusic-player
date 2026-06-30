@@ -153,6 +153,12 @@ Her release oncesi bu listeyi kontrol et.
 - [ ] H ile player, arama sonuclari ve liste ekranlarinda yardim ekrani acilir
 - [ ] Yardim ekranindan Q, Esc veya H ile onceki ekrana donulur
 
+## Gizlilik / Guvenlik
+
+- [ ] `yt-dlp` arama, mix ve indirme komutlari user config, cache ve cookies olmadan calisir
+- [ ] `mpv` user config, disk cache, resume file, cookies ve watch history olmadan baslar
+- [ ] `YTMUSIC_PROXY` ayarlandiginda yt-dlp proxy argumani alir
+
 ## Windows
 
 - [ ] Temiz Windows ortaminda `ym` ilk calismada eksik `mpv` ve `yt-dlp` bagimliliklarini `winget` ile kurmaya calisir

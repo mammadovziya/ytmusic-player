@@ -2,6 +2,7 @@ import { createConnection, type Socket } from 'net';
 import { EventEmitter } from 'events';
 import { unlinkSync } from 'fs';
 import { getMpvIpcPath, isWindows, resolveCommand } from './platform';
+import { getMpvPrivacyArgs } from './privacy';
 
 export interface PlayerState {
   title: string;
@@ -34,7 +35,7 @@ export class Player extends EventEmitter {
     const mpv = resolveCommand('mpv') ?? 'mpv';
 
     this.proc = Bun.spawn(
-      [mpv, '--no-video', '--no-terminal', `--input-ipc-server=${this.ipcPath}`, '--idle=yes'],
+      [mpv, ...getMpvPrivacyArgs(), '--no-video', '--no-terminal', `--input-ipc-server=${this.ipcPath}`, '--idle=yes'],
       { stderr: 'ignore', stdout: 'ignore' }
     );
 
