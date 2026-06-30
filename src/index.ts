@@ -17,7 +17,7 @@ const DOWN = '\x1B[B';
 const LEFT = '\x1B[D';
 const RIGHT = '\x1B[C';
 const VOLUME_STEP = 5;
-const VERSION = '0.3.4';
+const VERSION = '0.3.5';
 
 // Version handling
 if (process.argv.includes('--version') || process.argv.includes('-v')) {

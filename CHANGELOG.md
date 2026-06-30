@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.3.5
+
+### New Features
+
+- Add Windows support with named-pipe mpv IPC and Windows binary packaging.
+- Add first-run dependency setup for `mpv` and `yt-dlp`.
+- Add English, Azerbaijani, Turkish, Spanish, German, French, and Russian UI language support.
+
+### Security & Privacy
+
+- Run `yt-dlp` without user config, cache, cookies, or browser cookies.
+- Run `mpv` without user config, disk cache, resume files, cookies, or watch history.
+- Add optional `YTMUSIC_PROXY` routing for users who want to provide their own proxy.
+
+### Docs
+
+- Improve README SEO, platform support, release links, and privacy notes.
+
 ## v0.3.0
 
 ### New Features
